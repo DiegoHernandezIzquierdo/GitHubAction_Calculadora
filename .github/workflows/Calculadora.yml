@@ -1,0 +1,36 @@
+name: Action validar Calculadora
+
+on: [push, pull_request]
+
+jobs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: clonamos el codigo
+        uses: actions/checkout@v5
+        
+      - name: configurar java
+        uses: actions/setup-java@v5
+        with:
+            distribution: 'temurin'
+            java-version: '21'
+            
+      - name: compilar codigo Java
+        run: javac -d out src/*.java
+        
+      - name: ejecuta test
+        run: java -cp out CalculadoraTest
+        
+      - name: Crear ejecutable
+        run: |
+            cd out
+            jar cfe Calculadora.jar Main *.class
+            
+      - name: Probar jar
+        run: Java -jar out/Calculadora.jar
+        
+      - name: Guardar artefacto
+        uses: actions/upload-artifact@v5
+        with:
+            name: calculadora-jar
+            path: out/Calculadora.jar
