@@ -3,6 +3,7 @@ name: Action validar Calculadora
 on: [push, pull_request]
 
 jobs:
+build:
     runs-on: ubuntu-latest
     
     steps:
@@ -19,7 +20,7 @@ jobs:
         run: javac -d out src/*.java
         
       - name: ejecuta test
-        run: java -cp out CalculadoraTest
+        run: java -ea -cp out CalculadoraTest
         
       - name: Crear ejecutable
         run: |
