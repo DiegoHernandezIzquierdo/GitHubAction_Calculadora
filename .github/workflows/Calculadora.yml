@@ -28,7 +28,7 @@ jobs:
             jar cfe Calculadora.jar Main *.class
             
       - name: Probar jar
-        run: Java -jar out/Calculadora.jar
+        run: java -jar out/Calculadora.jar
         
       - name: Guardar artefacto
         uses: actions/upload-artifact@v5
